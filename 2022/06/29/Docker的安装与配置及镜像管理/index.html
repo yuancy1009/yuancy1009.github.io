@@ -1,0 +1,376 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Docker的安装与配置及镜像管理 | CY的笔记</title><meta name="author" content="崔渊"><meta name="copyright" content="崔渊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.介绍​        Docker 是一个开源的应用容器引擎，基于 Go语言 并遵从 Apache2.0 协议开源。 ​        Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。 容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。  Docker组件（核心）：镜像、容器、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker的安装与配置及镜像管理">
+<meta property="og:url" content="https://yuancy1009.github.io/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="CY的笔记">
+<meta property="og:description" content="1.介绍​        Docker 是一个开源的应用容器引擎，基于 Go语言 并遵从 Apache2.0 协议开源。 ​        Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。 容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。  Docker组件（核心）：镜像、容器、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fblog.daocloud.io%2Fwp-content%2Fuploads%2F2017%2F04%2FVolPlugin-768x359.png&refer=http%3A%2F%2Fblog.daocloud.io&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659080093&t=a956a699d6fce3558f9e3e7e8e09e04d">
+<meta property="article:published_time" content="2022-06-29T07:31:12.000Z">
+<meta property="article:modified_time" content="2022-06-29T07:35:04.264Z">
+<meta property="article:author" content="崔渊">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fblog.daocloud.io%2Fwp-content%2Fuploads%2F2017%2F04%2FVolPlugin-768x359.png&refer=http%3A%2F%2Fblog.daocloud.io&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659080093&t=a956a699d6fce3558f9e3e7e8e09e04d"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://yuancy1009.github.io/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Docker的安装与配置及镜像管理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-29 15:35:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">CY的笔记</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Docker的安装与配置及镜像管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-29T07:31:12.000Z" title="发表于 2022-06-29 15:31:12">2022-06-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-29T07:35:04.264Z" title="更新于 2022-06-29 15:35:04">2022-06-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Docker的安装与配置及镜像管理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p>​        Docker 是一个开源的应用容器引擎，基于 Go语言 并遵从 Apache2.0 协议开源。</p>
+<p>​        Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</p>
+<p>容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。</p>
+<blockquote>
+<p>Docker组件（核心）：镜像、容器、库。</p>
+<p>采用C/S架构：客户端（执行程序）→通过命令行和API形式和守候程序（提供Docker服务）进行通讯。</p>
+<ul>
+<li><p>镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个只读的静态模板（框架体系）；包含环境和应用执行代码（框架语言）；采用分层机制。将新增数据通过联合文件系统附加在原基础上。</span><br><span class="line">可以将之理解为虚拟机模板文件等同概念，例如ova，ovf等文件。</span><br></pre></td></tr></table></figure></li>
+<li><p>容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个运行时环境，是镜像的运行状态，是镜像执行的一种动态表现。</span><br></pre></td></tr></table></figure></li>
+<li><p>库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用注册服务器（共有的or私有的）存储和共享用户的镜像，是某个特定用户存储镜像的目录。</span><br><span class="line">公有的有：https://registry.hub.docker.com/</span><br><span class="line">阿里云镜像仓库：https://cr.console.aliyun.com/cn-shanghai/instances/repositories</span><br><span class="line">私服仓库有：harbor</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>华云安harbor私服</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">地址：https://192.168.103.106:11443/</span><br></pre></td></tr></table></figure>
+</blockquote>
+</blockquote>
+<h2 id="2-优缺点"><a href="#2-优缺点" class="headerlink" title="2.优缺点"></a>2.优缺点</h2><h3 id="2-1-优点"><a href="#2-1-优点" class="headerlink" title="2.1 优点"></a>2.1 优点</h3><blockquote>
+<ul>
+<li>可移植性</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一次编译，到处运行。可跨平台运行，有docker环境的服务器或主机或虚拟机都可以将应用跑起来。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>隔离性</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个docker容器就是一个独立的完整环境，各个容器之间相互独立，互不影响。</span><br><span class="line">比如说，可以在一台服务器上用docker同时部署mysql5.2，mysql5.7互不影响。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>资源消耗较低</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker只是一个进程，只需要将应用及相关的组件打包，在运行时占用很少的资源,最大效率地利用宿主机资源。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>快速部署</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Docker为进程创建一个容器, 不需要启动一个操作系统, 时间缩短为秒级别。</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="2-2-缺点"><a href="#2-2-缺点" class="headerlink" title="2.2 缺点"></a>2.2 缺点</h3><blockquote>
+<p>环境限制:</p>
+<ul>
+<li>必须在64位机器上运行，目前仅支持x86_64和AMD64位，不支持32位操作系统。</li>
+<li>系统的Linux内核必须是3.8或者更高,内核支持Device Mapper,AUFS,VFS,btrfs等存储格式。</li>
+<li>内核必须支持cgroups和命名空间。</li>
+</ul>
+</blockquote>
+<h2 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h2><h3 id="3-1-卸载旧的docker"><a href="#3-1-卸载旧的docker" class="headerlink" title="3.1 卸载旧的docker"></a>3.1 卸载旧的docker</h3><blockquote>
+<p><strong>查看有无安装过docker</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep docker</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>若有则进行卸载</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-使用Docker仓库进行安装"><a href="#3-2-使用Docker仓库进行安装" class="headerlink" title="3.2 使用Docker仓库进行安装"></a>3.2 使用Docker仓库进行安装</h3><blockquote>
+<p><strong>安装<code>device-mapper-persistent-data</code> 和 <code>lvm2</code></strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+<p>或执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y --allowerasing yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>设置清华大学yum源进行docker安装</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>安装 Docker Engine-Community</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-验证并启动Docker"><a href="#3-3-验证并启动Docker" class="headerlink" title="3.3 验证并启动Docker"></a>3.3 验证并启动Docker</h3><blockquote>
+<p>启动Docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<p>设置Docker为开机启动项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>通过运行 hello-world 镜像来验证Docker是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下，若出现“Hello from Docker!”则表示docker安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Unable to find image &#x27;hello-world:latest&#x27; locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">b8dfde127a29: Pull complete</span><br><span class="line">Digest: sha256:5122f6204b6a3596e048758cabba3c46b1c937a46b5be6225b835d091b90e46c</span><br><span class="line">Status: Downloaded newer image for hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image which runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="4-配置私服镜像仓库"><a href="#4-配置私服镜像仓库" class="headerlink" title="4.配置私服镜像仓库"></a>4.配置私服镜像仓库</h2><h2 id="4-1-修改hosts文件"><a href="#4-1-修改hosts文件" class="headerlink" title="4.1 修改hosts文件"></a>4.1 修改hosts文件</h2><blockquote>
+<p>/etc/hosts文件中增加harbor私服的地址映射配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.103.106   harbor.huaun.com  # docker私服中心地址</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="4-2-拷贝harbor证书文件"><a href="#4-2-拷贝harbor证书文件" class="headerlink" title="4.2 拷贝harbor证书文件"></a>4.2 拷贝harbor证书文件</h3><ul>
+<li><p>将<code>harbor_certs.tgz</code>(见文章末尾附件)文件拷贝到目录/etc/docker/目录下，执行解压操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf harbor_certs.tgz -C /etc/docker/</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-3-配置私服为可信任地址"><a href="#4-3-配置私服为可信任地址" class="headerlink" title="4.3 配置私服为可信任地址"></a>4.3 配置私服为可信任地址</h3><ul>
+<li>进入到/etc/docker/目录下，将<code>&quot;insecure-registries&quot;: [&quot;harbor.huaun.com:11443&quot;]</code>增加进 <code>daemon.json</code>文件（若没有，则创建）中</li>
+</ul>
+<h3 id="4-4-配置连接密码"><a href="#4-4-配置连接密码" class="headerlink" title="4.4 配置连接密码"></a>4.4 配置连接密码</h3><ul>
+<li>创建目录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /root/.docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将<code>config.json</code>文件拷贝进入到<code>/root/.docker</code>目录下，创建config.json文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch config.json</span><br></pre></td></tr></table></figure>
+编辑内容<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;auths&quot;: &#123;</span><br><span class="line">		&quot;harbor.huaun.com:11443&quot;: &#123;</span><br><span class="line">			&quot;auth&quot;: &quot;xxxxxxxxxxxxxxxxxxxxx&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+备注：config.json文件中 “auths”.”harbor.huaun.com:11443”.”auth”实际配置的是username:password 使用base64加密的结果</li>
+</ul>
+<h3 id="4-3-测试能否连接到华云安私服仓库"><a href="#4-3-测试能否连接到华云安私服仓库" class="headerlink" title="4.3 测试能否连接到华云安私服仓库"></a>4.3 测试能否连接到华云安私服仓库</h3><ul>
+<li><p>从私服上拉取java8镜像进行测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull harbor.huaun.com:11443/common/java8-linux:latest</span><br></pre></td></tr></table></figure></li>
+<li><p>查看镜像是否下载成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p>若出现java8镜像，则表示配置私服仓库成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@secopssoc docker]# docker images</span><br><span class="line">REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE</span><br><span class="line">harbor.huaun.com:11443/common/java8-linux   latest    80481863af60   11 days ago    132MB</span><br><span class="line">hello-world                           latest    d1165f221234   2 months ago   13.3kB</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-四大步"><a href="#5-四大步" class="headerlink" title="5.四大步"></a>5.四大步</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line"> A[Docker Build]</span><br><span class="line"> B[Docker Push]</span><br><span class="line"> C[Docker Pull]</span><br><span class="line"> D[Docker Run]</span><br><span class="line"> A --&gt; B --&gt; C --&gt; D</span><br></pre></td></tr></table></figure>
+
+<p>即我们使用Docker一般分为4个步骤：</p>
+<ul>
+<li>build：制作编译一个镜像文件（image）</li>
+<li>push：上传到远程仓库中</li>
+<li>pull：从远程仓库拉取镜像文件</li>
+<li>run：将镜像运行起来创建一个容器（container）</li>
+</ul>
+<h3 id="5-1-Docker-Build"><a href="#5-1-Docker-Build" class="headerlink" title="5.1 Docker Build"></a>5.1 Docker Build</h3><blockquote>
+<p>创建镜像的三种方式</p>
+<ul>
+<li>基于已有容器构建镜像主要是通过docker commit命令来构建新的镜像；</li>
+<li>基于本地模板导入；</li>
+<li>基于Dockerfile文件进行创建；</li>
+</ul>
+</blockquote>
+<p>本节重点讲述使用Dockerfile创建镜像。</p>
+<h4 id="5-1-1-Dockerfile文件的创建"><a href="#5-1-1-Dockerfile文件的创建" class="headerlink" title="5.1.1 Dockerfile文件的创建"></a>5.1.1 Dockerfile文件的创建</h4><blockquote>
+<p>本小节以定制版的centos7镜像创建进行说明。</p>
+<ul>
+<li><p>创建目录java8_centos7</p>
+</li>
+<li><p>目录中放入tvm-service所依赖的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@harbor java8_centos7]# ll</span><br><span class="line">total 56856</span><br><span class="line">-rwxr-xr-x. 1 root root   861339 May  6 15:12 dbsn</span><br><span class="line">drwxr-xr-x. 4 root root       28 Apr 27 18:54 java8</span><br><span class="line">-rw-r--r--. 1 root root 44508057 Apr 27 18:54 java8.tar.gz</span><br><span class="line">-rw-r--r--. 1 root root      528 Apr 27 18:54 Shanghai</span><br><span class="line">-rw-r--r--. 1 root root 12830955 Apr 28 15:46 tvm.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li><p>编写Dockerfile文件</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> centos:latest</span><br><span class="line"><span class="comment"># 创建作者</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> chenn&lt;chenn@huaun.com&gt;</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y net-tools</span></span><br><span class="line"><span class="comment">#安装ssh,scp命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y openssh-clients</span></span><br><span class="line"><span class="comment">#安装telnet命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y telnet</span></span><br><span class="line"><span class="comment">#安装traceroute命令</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> yum install -y traceroute</span></span><br><span class="line"><span class="comment"># 将tvm的相关内容拷贝进去</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> tvm.tar.gz /var/</span></span><br><span class="line"><span class="comment"># 设置时区,从制作主机上拷贝</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> Shanghai /usr/share/zoneinfo/Asia/</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> Shanghai /etc/localtime</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> dbsn /usr/bin/</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span> &gt;/etc/timezone</span></span><br><span class="line"><span class="comment"># 将最小化的java8文件拷贝到镜像中去</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> java8.tar.gz /usr/java/</span></span><br><span class="line"><span class="comment"># 设置java环境变量</span></span><br><span class="line"><span class="keyword">ENV</span> JAVA_HOME /usr/java/java8/</span><br><span class="line"><span class="keyword">ENV</span> PATH $&#123;PATH&#125;:$&#123;JAVA_HOME&#125;/bin</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /opt</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>说明：</p>
+<ul>
+<li><p>注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">与shell中的注释一样，使用#进行注释。</span><br></pre></td></tr></table></figure></li>
+<li><p>FROM</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">格式为FROM image或FROM image:tag，并且Dockerfile中第一条指令必须是FROM指令。基于一个基础镜像进行创建。</span><br></pre></td></tr></table></figure></li>
+<li><p>MAINTAINER</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">格式为MAINTAINER user_name user_email，指定维护者信息</span><br></pre></td></tr></table></figure></li>
+<li><p>RUN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">容器构建时需要运行的命令</span><br></pre></td></tr></table></figure></li>
+<li><p>ADD</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包</span><br></pre></td></tr></table></figure></li>
+<li><p>ENV</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用来在构建镜像过程中设置环境变量</span><br></pre></td></tr></table></figure></li>
+<li><p>WORKDIR</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>示例：<strong>Hello-word images springboot 应用创建</strong></p>
+<p>1.编写Dockerfile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 基于的基础镜像创建</span><br><span class="line">FROM harbor.huaun.com:11443/common/centos-java8:latest</span><br><span class="line"># 声明作者</span><br><span class="line">MAINTAINER chenn&lt;chenn@huaun.com&gt;</span><br><span class="line"># 上传hello-world-0.0.1-SNAPSHOT.jar 到镜像/opt/目录下</span><br><span class="line">ADD hello-world-0.0.1-SNAPSHOT.jar /opt/app.jar</span><br><span class="line"># 设置进入容器的落脚点</span><br><span class="line">WORKDIR /opt</span><br><span class="line"># 设置启动参数</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/opt/app.jar&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>2.编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world:latest .</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>编译过程如下所示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@secopssoc images_demo]<span class="comment"># docker build -t harbor.huaun.com:11443/test/hello-world:latest .</span></span><br><span class="line">Sending build context to Docker daemon  17.06MB</span><br><span class="line">Step 1/5 : FROM harbor.huaun.com:11443/common/centos-java8:latest</span><br><span class="line">latest: Pulling from common/centos-java8</span><br><span class="line">7a0437f04f83: Pull complete</span><br><span class="line">7ea5c07cb4dd: Pull complete</span><br><span class="line">ec47259e7631: Pull complete</span><br><span class="line">341749e0eff9: Pull complete</span><br><span class="line">b2b1ebd46f01: Pull complete</span><br><span class="line">74d3f5923609: Pull complete</span><br><span class="line">2bf09f57cbef: Pull complete</span><br><span class="line">5ca6aa7b19cf: Pull complete</span><br><span class="line">ab68e0669789: Pull complete</span><br><span class="line">Digest: sha256:6b0fa47dd4f2dd21d4549ad3996fdd737b88c1fb72782cea0b89c15dcbcb511e</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> harbor.huaun.com/common/centos-java8:latest</span><br><span class="line"> ---&gt; 7764f4d30cf7</span><br><span class="line">Step 2/5 : MAINTAINER chenn&lt;chenn@huaun.com&gt;</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 3ab9ed00f6e7</span><br><span class="line">Removing intermediate container 3ab9ed00f6e7</span><br><span class="line"> ---&gt; 0100b78bc01c</span><br><span class="line">Step 3/5 : ADD hello-world-0.0.1-SNAPSHOT.jar /opt/app.jar</span><br><span class="line"> ---&gt; 9487497f7ebd</span><br><span class="line">Step 4/5 : WORKDIR /opt</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 12aa3d492156</span><br><span class="line">Removing intermediate container 12aa3d492156</span><br><span class="line"> ---&gt; 0608de93c7aa</span><br><span class="line">Step 5/5 : ENTRYPOINT [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/opt/app.jar&quot;</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 4c80ee5f10d4</span><br><span class="line">Removing intermediate container 4c80ee5f10d4</span><br><span class="line"> ---&gt; d61f4685649a</span><br><span class="line">Successfully built d61f4685649a</span><br><span class="line">Successfully tagged harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world:latest</span><br></pre></td></tr></table></figure></li>
+<li><p>查看镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<p>如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@secopssoc images_demo]# docker images</span><br><span class="line">REPOSITORY                             TAG       IMAGE ID       CREATED              SIZE</span><br><span class="line">harbor.huaun.com:11443/test/hello-world      latest    d61f4685649a   About a minute ago   425MB</span><br><span class="line">harbor.huaun.com:11443/common/centos-java8   latest    7764f4d30cf7   11 days ago          408MB</span><br><span class="line">harbor.huaun.com:11443/common/java8-linux    latest    80481863af60   12 days ago          132MB</span><br><span class="line">hello-world                            latest    d1165f221234   2 months ago         13.3kB</span><br></pre></td></tr></table></figure>
+
+<p><code>harbor.huaun.com:11443/test/hello-world      latest    d61f4685649a   About a minute ago   425MB</code>即编译的镜像，测试运行是否正确</p>
+</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="5-2-Docker-Push"><a href="#5-2-Docker-Push" class="headerlink" title="5.2 Docker Push"></a>5.2 Docker Push</h3><blockquote>
+<p>将本地制作好的镜像上传到私服harbor中</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world      latest    d61f4685649a   About a minute ago   425MB</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>harbor.huaun.com 私服的网络位置</li>
+<li>test 项目，对应harbor中的项目</li>
+<li>hello-world 镜像名称</li>
+<li>latest tag，一般来说对应版本</li>
+</ul>
+<blockquote>
+<p>推送命令</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>登录harbor私服，查看上传的镜像是否成功</li>
+</ul>
+<h3 id="5-3-Docker-Pull"><a href="#5-3-Docker-Pull" class="headerlink" title="5.3 Docker Pull"></a>5.3 Docker Pull</h3><blockquote>
+<p>从私服上拉取镜像</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-4-Docker-Run"><a href="#5-4-Docker-Run" class="headerlink" title="5.4 Docker Run"></a>5.4 Docker Run</h3><blockquote>
+<p>启动一个helloword容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name hello-world-test \</span><br><span class="line"> --restart=always \</span><br><span class="line"> -e PARAM_MSG=<span class="string">&#x27;container test&#x27;</span> \</span><br><span class="line"> -p 28888:18888 \</span><br><span class="line"> harbor.huaun.com:11443/<span class="built_in">test</span>/hello-world:latest</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>访问浏览器测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.103.211:28888/</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">崔渊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://yuancy1009.github.io/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/">https://yuancy1009.github.io/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://yuancy1009.github.io" target="_blank">CY的笔记</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fblog.daocloud.io%2Fwp-content%2Fuploads%2F2017%2F04%2FVolPlugin-768x359.png&amp;refer=http%3A%2F%2Fblog.daocloud.io&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659080093&amp;t=a956a699d6fce3558f9e3e7e8e09e04d" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/06/29/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%AD%90%E5%BA%94%E7%94%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-d12a29de3e75400d5d8b443961571ed7_1440w.jpg%3Fsource%3D172ae18b&amp;refer=http%3A%2F%2Fpic2.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659080489&amp;t=9d5c4b1bcbfaf8878881f8907de9af1e" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">微前端访问子应用跨域问题</div></div></a></div><div class="next-post pull-right"><a href="/2022/06/29/%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/"><img class="next-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fstatic001.infoq.cn%2Fresource%2Fimage%2F6e%2F24%2F6e1baf91e53fce11a3e242797e747424.jpg&amp;refer=http%3A%2F%2Fstatic001.infoq.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659079619&amp;t=3d0593a933fc2dba281057a727b00e93" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用Docker部署前端应用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">崔渊</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/yuancy1009"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">1.介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">2.优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BC%98%E7%82%B9"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%BC%BA%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">3.安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%8D%B8%E8%BD%BD%E6%97%A7%E7%9A%84docker"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 卸载旧的docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BD%BF%E7%94%A8Docker%E4%BB%93%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 使用Docker仓库进行安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%AA%8C%E8%AF%81%E5%B9%B6%E5%90%AF%E5%8A%A8Docker"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 验证并启动Docker</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%8D%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93"><span class="toc-number">4.</span> <span class="toc-text">4.配置私服镜像仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BF%AE%E6%94%B9hosts%E6%96%87%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">4.1 修改hosts文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E6%8B%B7%E8%B4%9Dharbor%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6"><span class="toc-number">5.1.</span> <span class="toc-text">4.2 拷贝harbor证书文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E9%85%8D%E7%BD%AE%E7%A7%81%E6%9C%8D%E4%B8%BA%E5%8F%AF%E4%BF%A1%E4%BB%BB%E5%9C%B0%E5%9D%80"><span class="toc-number">5.2.</span> <span class="toc-text">4.3 配置私服为可信任地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5%E5%AF%86%E7%A0%81"><span class="toc-number">5.3.</span> <span class="toc-text">4.4 配置连接密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%B5%8B%E8%AF%95%E8%83%BD%E5%90%A6%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%8D%8E%E4%BA%91%E5%AE%89%E7%A7%81%E6%9C%8D%E4%BB%93%E5%BA%93"><span class="toc-number">5.4.</span> <span class="toc-text">4.3 测试能否连接到华云安私服仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%9B%9B%E5%A4%A7%E6%AD%A5"><span class="toc-number">6.</span> <span class="toc-text">5.四大步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Docker-Build"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 Docker Build</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-1-Dockerfile%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-number">6.1.1.</span> <span class="toc-text">5.1.1 Dockerfile文件的创建</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Docker-Push"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 Docker Push</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Docker-Pull"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 Docker Pull</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Docker-Run"><span class="toc-number">6.4.</span> <span class="toc-text">5.4 Docker Run</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/29/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%AD%90%E5%BA%94%E7%94%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="微前端访问子应用跨域问题"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic2.zhimg.com%2Fv2-d12a29de3e75400d5d8b443961571ed7_1440w.jpg%3Fsource%3D172ae18b&amp;refer=http%3A%2F%2Fpic2.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659080489&amp;t=9d5c4b1bcbfaf8878881f8907de9af1e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="微前端访问子应用跨域问题"/></a><div class="content"><a class="title" href="/2022/06/29/%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%AD%90%E5%BA%94%E7%94%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="微前端访问子应用跨域问题">微前端访问子应用跨域问题</a><time datetime="2022-06-29T07:38:15.000Z" title="发表于 2022-06-29 15:38:15">2022-06-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/" title="Docker的安装与配置及镜像管理"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fblog.daocloud.io%2Fwp-content%2Fuploads%2F2017%2F04%2FVolPlugin-768x359.png&amp;refer=http%3A%2F%2Fblog.daocloud.io&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659080093&amp;t=a956a699d6fce3558f9e3e7e8e09e04d" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker的安装与配置及镜像管理"/></a><div class="content"><a class="title" href="/2022/06/29/Docker%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E5%8F%8A%E9%95%9C%E5%83%8F%E7%AE%A1%E7%90%86/" title="Docker的安装与配置及镜像管理">Docker的安装与配置及镜像管理</a><time datetime="2022-06-29T07:31:12.000Z" title="发表于 2022-06-29 15:31:12">2022-06-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/29/%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/" title="使用Docker部署前端应用"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fstatic001.infoq.cn%2Fresource%2Fimage%2F6e%2F24%2F6e1baf91e53fce11a3e242797e747424.jpg&amp;refer=http%3A%2F%2Fstatic001.infoq.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659079619&amp;t=3d0593a933fc2dba281057a727b00e93" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Docker部署前端应用"/></a><div class="content"><a class="title" href="/2022/06/29/%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8/" title="使用Docker部署前端应用">使用Docker部署前端应用</a><time datetime="2022-06-29T06:27:44.000Z" title="发表于 2022-06-29 14:27:44">2022-06-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/28/%E5%B8%B8%E7%94%A8linux%E5%91%BD%E4%BB%A4/" title="常用linux命令"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.h3399.cn%2Fuploads%2Fbody%2F1252%2F397fd5949939.jpg&amp;refer=http%3A%2F%2Fwww.h3399.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1653720231&amp;t=891a16cbf7b969ea32cd725c530ca4b6" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用linux命令"/></a><div class="content"><a class="title" href="/2022/04/28/%E5%B8%B8%E7%94%A8linux%E5%91%BD%E4%BB%A4/" title="常用linux命令">常用linux命令</a><time datetime="2022-04-28T06:39:24.000Z" title="发表于 2022-04-28 14:39:24">2022-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2XSS%E6%94%BB%E5%87%BB/" title="v-html指令潜在的xss攻击"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-a077e67352924fa208f56d46ac0bd77a_1440w.jpg%3Fsource%3D172ae18b&amp;refer=http%3A%2F%2Fpic1.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1659079667&amp;t=a4722554a245e472cbd91d6137dc7471" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="v-html指令潜在的xss攻击"/></a><div class="content"><a class="title" href="/2021/12/06/%E5%A6%82%E4%BD%95%E9%98%B2%E6%AD%A2XSS%E6%94%BB%E5%87%BB/" title="v-html指令潜在的xss攻击">v-html指令潜在的xss攻击</a><time datetime="2021-12-06T01:42:08.000Z" title="发表于 2021-12-06 09:42:08">2021-12-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 崔渊</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
